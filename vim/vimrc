@@ -1,0 +1,135 @@
+set modelines=1
+" Color {{{
+set t_Co=256			" Enable 256 color mode
+:colorscheme monokai " Set colorscheme
+syntax enable			" Enable syntax processing
+" }}}
+
+" Spaces & Tabs {{{
+set tabstop=4			" Number of visual spaces per TAB
+set softtabstop=4		" Number of spaces in TAB when editing
+set expandtab			" TAB -> Space
+set shiftwidth=4		" indenting uses 4 spaces
+" }}}
+
+" UI Config {{{
+set number			" Show line numbers
+set relativenumber  " Show relative line numbers
+set showcmd			" Show last command in bottom bar
+set cursorline		" Highlight current line
+
+set colorcolumn=80	" Show column at line character limit
+" Show column at character line limit
+highlight ColorColumn ctermbg=darkgrey
+
+filetype indent on	" Load file type-specific indent files
+
+set wildmenu		" Visual Autocomplete for command menu
+
+set lazyredraw		" Redraw only when necessary
+
+set showmatch		" Highlight matching parenthesis
+
+set splitright		" Open new vertical split to the right
+
+set scrolloff=20    " Try to keep 20 lines up/down from the current line in the display
+
+" File dependend settings
+" Tex
+autocmd FileType tex hi clear SpellBad  " Clear current spellBad highlighting
+autocmd FileType tex hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
+autocmd FileType tex setlocal spell spelllang=de_de " Use german spell checking in tex files
+
+autocmd FileType tex set textwidth=100
+autocmd FileType tex set wrap linebreak nolist
+" }}}
+
+" Searching {{{
+set incsearch		" Search as characters are entered
+set hlsearch		" Highlight search matches
+
+" Turn off search highlight
+nnoremap <C-x> :nohlsearch<CR> 
+" }}}
+
+" Folding {{{
+set foldenable		" enable folding
+set foldlevelstart=10 " open folds up to x levels
+set foldnestmax=10	" Max x nested folds
+set foldmethod=indent	" fold based on indent level in python
+autocmd FileType c set foldmethod=syntax	" fold based on indent level in c
+
+" space open/closes folds
+nnoremap <space> za
+" }}}
+
+" Movement {{{
+" Remap buffer switching
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Remap movement for wrapped lines
+nnoremap j gj
+nnoremap k gk
+" }}}
+
+" Custom Functions {{{
+" Switch relative/absolute line numbers
+func! NumberToggle()
+	if(&relativenumber == 1)
+		set number
+		set norelativenumber
+        else
+		set nonumber
+		set relativenumber
+	endif
+endfunc
+
+nnoremap <NUL> :call NumberToggle()<CR>
+
+" }}}
+
+" Plugins {{{
+" Vundle plugin
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive' " Git Integration
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status Bar
+Plugin 'scrooloose/syntastic'
+Plugin 'crusoexia/vim-monokai'
+Plugin 'scrooloose/nerdtree' " File Tree
+Plugin 'rhysd/vim-clang-format' " Adds automatic clang format support
+Plugin 'vimwiki/vimwiki' " Adds wiki file format an management
+"textbf Plugin 'Yggdroot/indentLine' " Adds indent lines
+call vundle#end()
+filetype plugin indent on
+" Vundle plugin end
+
+" }}}
+
+" Misc {{{
+set clipboard=unnamed	" Set global clipboard
+set encoding=utf-8		" Set encoding to utf-8	
+
+set backup				" Enable backup
+set backupdir=~/.vim/backup " Set Backup directory
+set directory=~/.vim/tmp	" Set .swp directory
+
+autocmd FileType tex setlocal spell spelllang=de_de
+" }}}
+
+" Startup {{{
+if v:version >= 700
+	try
+		autocmd VimEnter * NERDTree " Start Vim with NERD Tree opened
+		autocmd VimEnter * wincmd l	
+	catch
+	endtry
+endif
+" }}}
+" vim:foldmethod=marker:foldlevel=0
