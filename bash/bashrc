@@ -116,6 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# FZF Configuration
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"
+
 #PATH
 PATH="/home/felix/Software/IKOS/bin:$PATH"
 PATH="$PATH:~/.Nozbe"
