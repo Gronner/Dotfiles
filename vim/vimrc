@@ -19,7 +19,7 @@ set showcmd			" Show last command in bottom bar
 set cursorline		" Highlight current line
 
 set colorcolumn=80	" Show column at line character limit
-" Show column at character line limit
+
 highlight ColorColumn ctermbg=darkgrey
 
 filetype indent on	" Load file type-specific indent files
@@ -48,21 +48,14 @@ autocmd FileType tex set wrap linebreak nolist
 set incsearch		" Search as characters are entered
 set hlsearch		" Highlight search matches
 
+" }}}
+
+"Remappings {{{
 " Turn off search highlight
-nnoremap <C-x> :nohlsearch<CR> 
-" }}}
-
-" Folding {{{
-set foldenable		" enable folding
-set foldlevelstart=10 " open folds up to x levels
-set foldnestmax=10	" Max x nested folds
-set foldmethod=indent	" fold based on indent level in python
-autocmd FileType c set foldmethod=syntax	" fold based on indent level in c
-
+nnoremap <C-x> :nohlsearch<CR>
+" Switch between relative and absolut line numbers
+nnoremap <NUL> :call NumberToggle()<CR>
 " space open/closes folds
-nnoremap <space> za
-" }}}
-
 " Movement {{{
 " Remap buffer switching
 nnoremap <C-J> <C-W><C-J>
@@ -74,21 +67,52 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap j gj
 nnoremap k gk
 " }}}
+nnoremap <space> za
+" }}}
+
+" Commands {{{
+command Term vert term++close
+" }}}
+
+" Folding {{{
+set foldenable		" enable folding
+set foldlevelstart=10 " open folds up to x levels
+set foldnestmax=10	" Max x nested folds
+set foldmethod=indent	" fold based on indent level in python
+" }}}
+
+" Language Specifics {{{
+" C {{{
+autocmd FileType c set foldmethod=syntax	" fold based on syntax in c
+" }}}
+" Python{{{
+autocmd FileType c set foldmethod=indent " fold based on syntax in c
+" }}}
+" }}}
 
 " Custom Functions {{{
 " Switch relative/absolute line numbers
 func! NumberToggle()
 	if(&relativenumber == 1)
-		set number
-		set norelativenumber
-        else
-		set nonumber
-		set relativenumber
-	endif
+        set number
+        set norelativenumber
+    else
+        set nonumber
+        set relativenumber
+    endif
 endfunc
 
-nnoremap <NUL> :call NumberToggle()<CR>
+" }}}
 
+" Misc {{{
+set clipboard=unnamedplus	" Set global clipboard
+set encoding=utf-8		    " Set encoding to utf-8
+
+set backup				    " Enable backup
+set backupdir=~/.vim/backup " Set Backup directory
+set directory=~/.vim/tmp	" Set .swp directory
+
+autocmd FileType tex setlocal spell spelllang=de_de
 " }}}
 
 " Plugins {{{
@@ -112,24 +136,6 @@ filetype plugin indent on
 
 " }}}
 
-" Misc {{{
-set clipboard=unnamed	" Set global clipboard
-set encoding=utf-8		" Set encoding to utf-8	
-
-set backup				" Enable backup
-set backupdir=~/.vim/backup " Set Backup directory
-set directory=~/.vim/tmp	" Set .swp directory
-
-autocmd FileType tex setlocal spell spelllang=de_de
-" }}}
-
 " Startup {{{
-if v:version >= 700
-	try
-		autocmd VimEnter * NERDTree " Start Vim with NERD Tree opened
-		autocmd VimEnter * wincmd l	
-	catch
-	endtry
-endif
 " }}}
 " vim:foldmethod=marker:foldlevel=0
