@@ -131,10 +131,10 @@ export ENV_STM_COM_DIR=/home/felix/Documents/Programme/C/MCUs/STM32F401C_DISCO/s
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Aliases
-alias python=python3.6
+alias python=python3
 alias telegram='/opt/telegram/Telegram'
 alias logic-an='/home/felix/Software/Logic_Analyzer/Logic'
-alias pip=pip3.5
+alias pip=pip3
 export LC_ALL=C
 export PS1="\u:\W $(__git_ps1 '(%s)')\$ "
 
