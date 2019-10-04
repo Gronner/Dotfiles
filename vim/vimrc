@@ -122,14 +122,29 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive' " Git Integration
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'} " Status Bar
-Plugin 'scrooloose/syntastic'
-Plugin 'crusoexia/vim-monokai'
-Plugin 'scrooloose/nerdtree' " File Tree
-Plugin 'rhysd/vim-clang-format' " Adds automatic clang format support
-Plugin 'vimwiki/vimwiki' " Adds wiki file format an management
-"textbf Plugin 'Yggdroot/indentLine' " Adds indent lines
+" Air Line {{{
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airlinie#extensions#branch#enable=1
+let g:ariline_powerline_fonts=1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" }}}
+" fzf {{{
+Plugin 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' : './install.sh --all'}
+Plugin 'junegunn/fzf.vim'
+" }}}
+" Vim Wiki {{{
+Plugin 'vimwiki/vimwiki'
+let wiki = {}
+let wiki.nested_syntaxes = {'python' : 'python', 'c' : 'c'} " Activate syntax highlighting in vimwiki
+let g:vimwiki_list=[{'path' : '~/Documents/vimwiki', 'path_html' : '~/Documents/vimwiki/html_out'}]
+" }}}
+Plugin 'neoclide/coc.nvim', {'branch': 'release'} " IntelSense Engine for Vim
+" Rust {{{
+Plugin 'rust-lang/rust.vim'
+" }}}
 call vundle#end()
 filetype plugin indent on
 " Vundle plugin end
