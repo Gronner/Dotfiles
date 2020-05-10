@@ -173,7 +173,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
 bindsym $mod+p exec scrot -s ~/Bilder/Screenshots/temp.png & xclip -selection clipboard -t image/png -o > ~/Bilder/Screenshots/temp.png
 
 exec --no-startup-id pulseaudio
-exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec thunderbird; workspace 1;'
+exec --no-startup-id i3-msg 'workspace 1; exec firefox; workspace 2; exec thunderbird; exec telegram-desktop; workspace 1;'
 exec sh ~/.fehbg &
 # exec dropbox start
 # exec --no-startup-id setxkbmap us dev-de
