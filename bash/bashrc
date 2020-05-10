@@ -126,9 +126,10 @@ PATH="$PATH:~/.Nozbe"
 # custom
 export EDITOR=vim
 # Environment variables
-export ENV_STLINK=/home/felix/Documents/Programme/C/MCUs/STM32F401C_DISCO/stlink
-export ENV_STM_COM_DIR=/home/felix/Documents/Programme/C/MCUs/STM32F401C_DISCO/stm32_discovery_arm_gcc/STM32F4-Discovery_FW_V1.1.0
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.Nozbe/Nozbe:$PATH"
+export PATH="$PATH:$HOME/Software/STM32/stlink/build/Release/_install/usr/local/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Software/STM32/stlink/build/Release/_install/usr/local/lib"
 
 # Aliases
 alias python=python3
