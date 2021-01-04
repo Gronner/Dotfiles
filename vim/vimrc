@@ -18,7 +18,7 @@ set relativenumber  " Show relative line numbers
 set showcmd			" Show last command in bottom bar
 set cursorline		" Highlight current line
 
-set colorcolumn=80	" Show column at line character limit
+set colorcolumn=100	" Show column at line character limit
 
 highlight ColorColumn ctermbg=darkgrey
 
@@ -119,6 +119,9 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+" vim fugitive {{{
+Plugin 'tpope/vim-fugitive'
+" }}}
 " Air Line {{{
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -129,8 +132,9 @@ if !exists('g:airline_symbols')
 endif
 " }}}
 " fzf {{{
-Plugin 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' : './install.sh --all'}
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() }}
 Plugin 'junegunn/fzf.vim'
+nnoremap <C-g> :Rg<Cr>
 " }}}
 " Vim Wiki {{{
 Plugin 'vimwiki/vimwiki'
@@ -138,7 +142,14 @@ let wiki = {}
 let wiki.nested_syntaxes = {'python' : 'python', 'c' : 'c'} " Activate syntax highlighting in vimwiki
 let g:vimwiki_list=[{'path' : '~/Documents/vimwiki', 'path_html' : '~/Documents/vimwiki/html_out'}]
 " }}}
+" Coc {{{
 Plugin 'neoclide/coc.nvim', {'branch': 'release'} " IntelSense Engine for Vim
+" Mappings {{{
+nnoremap gd :call CocActionAsync('jumpDefinition', 'tab drop')<CR>
+nnoremap gr :call CocActionAsync('jumpReferences', 'tab drop')<CR>
+nnoremap gi :call CocActionAsync('jumpImplementation', 'tab drop')<CR>
+" }}}
+" }}}
 " Rust {{{
 Plugin 'rust-lang/rust.vim'
 " }}}
