@@ -136,7 +136,11 @@ alias python=python3
 alias telegram='/opt/telegram/Telegram'
 alias logic-an='/home/felix/Software/Logic_Analyzer/Logic'
 alias pip=pip3
+alias clang=clang-9
+alias clang-format=clang-format-9
 export LC_ALL=C
 export PS1="\u:\W $(__git_ps1 '(%s)')\$ "
 
 alias :q=exit
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
