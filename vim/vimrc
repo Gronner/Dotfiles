@@ -1,15 +1,17 @@
 set modelines=1
 " Color {{{
 set t_Co=256			" Enable 256 color mode
-:colorscheme monokai " Set colorscheme
+set background=dark     " Use a dark background
 syntax enable			" Enable syntax processing
+let &t_ut=''            " Force vim to erase background color
+:silent! colorscheme monokai     " Set colorscheme to monokai if present, otherwise do nothing
 " }}}
 
 " Spaces & Tabs {{{
 set tabstop=4			" Number of visual spaces per TAB
 set softtabstop=4		" Number of spaces in TAB when editing
-set expandtab			" TAB -> Space
 set shiftwidth=4		" indenting uses 4 spaces
+set expandtab			" TAB -> Space
 " }}}
 
 " UI Config {{{
@@ -19,12 +21,13 @@ set showcmd			" Show last command in bottom bar
 set cursorline		" Highlight current line
 
 set colorcolumn=100	" Show column at line character limit
-
 highlight ColorColumn ctermbg=darkgrey
 
-filetype indent on	" Load file type-specific indent files
+set autoindent              " Automatically continues indentation
+filetype plugin indent on	" Load file type-specific indent files
 
 set wildmenu		" Visual Autocomplete for command menu
+set wildmode=longest:full,full " Only complete to longest match, but switch to full if <TAB><TAB>
 
 set lazyredraw		" Redraw only when necessary
 
@@ -32,21 +35,152 @@ set showmatch		" Highlight matching parenthesis
 
 set splitright		" Open new vertical split to the right
 
-set scrolloff=20    " Try to keep 20 lines up/down from the current line in the display
+set scrolloff=10    " Try to keep 20 lines up/down from the current line in the display
+
+set listchars=tab:¦·,trail:·,nbsp:· " Show whitespace characters
 " }}}
 
 " Searching {{{
 set incsearch		" Search as characters are entered
 set hlsearch		" Highlight search matches
+set smartcase       " Search Case insensitive, if no upper case is used
+" }}}
+
+
+" Folding {{{
+set foldenable		    " enable folding
+set foldlevelstart=10   " open folds up to x levels
+set foldnestmax=10	    " Max x nested folds
+set foldmethod=syntax   " fold based on syntax
+" }}}
+
+" Language Specifics {{{
+" LaTex {{{
+augroup Latex
+    autocmd FileType tex hi clear SpellBad  " Clear current spellBad highlighting
+    autocmd FileType tex hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
+    autocmd FileType tex setlocal spell spelllang=en_us " Use english spell checking in tex files
+
+    autocmd FileType tex set textwidth=100
+    autocmd FileType tex set wrap linebreak nolist
+augroup END
+" }}}
+" }}}
+
+" Custom Commands {{{
+command Term vert term++close
+" }}}
+
+" Custom Functions {{{
+" Switch relative/absolute line numbers
+func! NumberToggle()
+    if(&relativenumber == 1)
+        set number
+        set norelativenumber
+    else
+        set nonumber
+        set relativenumber
+    endif
+endfunc
+
+func! WhitespaceShowToggle()
+    set list!
+endfunc
 
 " }}}
 
+" Misc {{{
+set clipboard=unnamedplus	" Set global clipboard
+set encoding=utf-8		    " Set encoding to utf-8
+
+set backup		            " keep a backup file (restore to previous version)
+set directory=~/.vim/tmp	" Set .swp directory
+set backupdir=~/.vim/backup " Set .bak directory
+set backupext=.bak          " Backup files are postfixed with .bak
+if has('persistent_undo')
+    set undodir=~/.vim/tmp  " Set dir for undo files
+    set undofile	        " keep an undo file (undo changes after closing)
+endif
+" }}}
+
+" Plugins {{{
+" Vim Plugins
+" MatchIt {{{
+if has('syntax') && has('eval')
+    packadd! matchit " % matches more than just brackets
+endif
+" }}}
+" vim-plug plugin
+call plug#begin()
+" Monokai Colorscheme {{{
+Plug 'crusoexia/vim-monokai', {'frozen': 1}
+" }}}
+" vim fugitive {{{
+Plug 'tpope/vim-fugitive', {'frozen': 1}
+" }}}
+" Air Line {{{
+Plug 'vim-airline/vim-airline', {'frozen': 1}
+Plug 'vim-airline/vim-airline-themes', {'frozen': 1}
+let g:airlinie#extensions#branch#enable=1
+let g:airline_powerline_fonts=1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" }}}
+" fzf {{{
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() }, 'frozen': 1}
+Plug 'junegunn/fzf.vim', {'frozen': 1}
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" }}}
+" Vim Wiki {{{
+Plug 'vimwiki/vimwiki', {'frozen': 1}
+let wiki = {}
+let wiki.nested_syntaxes = {'python' : 'python', 'c' : 'c'} " Activate syntax highlighting in vimwiki
+let g:vimwiki_list=[{'path' : '~/Documents/vimwiki', 'path_html' : '~/Documents/vimwiki/html_out'}]
+" }}}
+" Coc {{{
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'frozen': 1} " IntelSense Engine for Vim
+" Plugins {{{
+Plug 'lervag/vimtex', {'frozen': 1}
+let g:tex_flavor = 'latex' " make vimtex use latex
+" }}}
+let g:coc_global_extensions = [
+\   'coc-clangd',
+\   'coc-git',
+\   'coc-json',
+\   'coc-python',
+\   'coc-rust-analyzer',
+\   'coc-vimtex']
+" }}}
+" Rust {{{
+Plug 'rust-lang/rust.vim', {'frozen': 1}
+" }}}
+" Easy Motion {{{
+Plug 'easymotion/vim-easymotion', {'frozen': 1}
+let g:EasyMotion_smartcase = 1
+" }}}
+" Secure Modelines {{{
+Plug 'ypcrts/securemodelines', {'frozen': 1}
+let g:secure_modelines_verbose = 1 " Warn if illegal modelines are present
+let g:secure_modelines_allowed_items = [
+\   "foldmethod",
+\   "foldlevel"
+\   ]
+" }}}
+call plug#end()
+" Vundle plugin end
+filetype plugin on      " Enable filetype pluins
+" }}}
+
+" Startup {{{
+" }}}
+
 "Remappings {{{
-" Turn off search highlight
-nnoremap <C-x> :nohlsearch<CR>
-" Switch between relative and absolut line numbers
-nnoremap <NUL> :call NumberToggle()<CR>
-" space open/closes folds
 " Movement {{{
 " Remap buffer switching
 nnoremap <C-J> <C-W><C-J>
@@ -58,107 +192,35 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap j gj
 nnoremap k gk
 " }}}
+" Functions {{{
+" Turn off search highlight
+nnoremap <C-x> :nohlsearch<CR>
+" Switch between relative and absolut line numbers
+nnoremap <NUL> :call NumberToggle()<CR>
+" Switch between visible and invisible whitespace
+nnoremap <C-c> :call WhitespaceShowToggle()<CR>
+" space open/closes folds
 nnoremap <space> za
 " }}}
-
-" Commands {{{
-command Term vert term++close
-" }}}
-
-" Folding {{{
-set foldenable		" enable folding
-set foldlevelstart=10 " open folds up to x levels
-set foldnestmax=10	" Max x nested folds
-set foldmethod=indent	" fold based on indent level in python
-" }}}
-
-" Language Specifics {{{
-" C {{{
-autocmd FileType c set foldmethod=syntax	" fold based on syntax in c
-" }}}
-" Python{{{
-autocmd FileType c set foldmethod=indent " fold based on syntax in c
-" }}}
-" LaTex {{{
-autocmd FileType tex hi clear SpellBad  " Clear current spellBad highlighting
-autocmd FileType tex hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
-autocmd FileType tex setlocal spell spelllang=en_us " Use english spell checking in tex files
-
-autocmd FileType tex set textwidth=100
-autocmd FileType tex set wrap linebreak nolist
-" }}}
-" }}}
-
-" Custom Functions {{{
-" Switch relative/absolute line numbers
-func! NumberToggle()
-	if(&relativenumber == 1)
-        set number
-        set norelativenumber
-    else
-        set nonumber
-        set relativenumber
-    endif
-endfunc
-
-" }}}
-
-" Misc {{{
-set clipboard=unnamedplus	" Set global clipboard
-set encoding=utf-8		    " Set encoding to utf-8
-
-set backup				    " Enable backup
-set backupdir=~/.vim/backup " Set Backup directory
-set directory=~/.vim/tmp	" Set .swp directory
-" }}}
-
 " Plugins {{{
-" Vundle plugin
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-" vim fugitive {{{
-Plugin 'tpope/vim-fugitive'
-" }}}
-" Air Line {{{
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-let g:airlinie#extensions#branch#enable=1
-let g:airline_powerline_fonts=1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" }}}
-" fzf {{{
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() }}
-Plugin 'junegunn/fzf.vim'
-nnoremap <C-g> :Rg<Cr>
-" }}}
-" Vim Wiki {{{
-Plugin 'vimwiki/vimwiki'
-let wiki = {}
-let wiki.nested_syntaxes = {'python' : 'python', 'c' : 'c'} " Activate syntax highlighting in vimwiki
-let g:vimwiki_list=[{'path' : '~/Documents/vimwiki', 'path_html' : '~/Documents/vimwiki/html_out'}]
+" FZF {{{
+nnoremap <C-?> :FZF <cr>
 " }}}
 " Coc {{{
-Plugin 'neoclide/coc.nvim', {'branch': 'release'} " IntelSense Engine for Vim
-" Mappings {{{
 nnoremap gd :call CocActionAsync('jumpDefinition', 'tab drop')<CR>
 nnoremap gr :call CocActionAsync('jumpReferences', 'tab drop')<CR>
 nnoremap gi :call CocActionAsync('jumpImplementation', 'tab drop')<CR>
+" Autocomplete on Enter (<cr>) pressed
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" Switch autocomplete cycling to Tab for down and Shift-Tab for up
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" }}}
+" Easy Motion {{{
+map <Leader> <Plug>(easymotion-prefix)
+nmap f <Plug>(easymotion-fl)
+nmap F <Plug>(easymotion-Fl)
 " }}}
 " }}}
-" Rust {{{
-Plugin 'rust-lang/rust.vim'
-" }}}
-call vundle#end()
-filetype plugin indent on
-" Vundle plugin end
-
-" }}}
-
-" Startup {{{
 " }}}
 " vim:foldmethod=marker:foldlevel=0

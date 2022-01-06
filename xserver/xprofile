@@ -1,2 +1,6 @@
 #!/bin/sh
-xrandr --output DP-4 --primary --mode 3840x2160 --rate 60 --rotate normal --scale 1x1 --output DP-2 --mode 3840x2160 --rotate normal --rate 60 --left-of DP-4 --output HDMI-0 --off
+if xrandr --query | grep 'HDMI-0 connected' && xrandr --query | grep 'DP-4 connected'; then
+    xrandr --output HDMI-0 --primary --mode 2560x1440 --refresh 144.00 --output DP-4 --mode 3840x2160 --scale 1x1 --refresh 60 --left-of HDMI-0
+else
+    xrandr --auto
+fi
