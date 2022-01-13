@@ -1,0 +1,6 @@
+#!/bin/sh
+# Park Setup
+# xrandr --output DP1-1  --left-of DP1-2 --mode 1920x1080 --output DP1-2 --mode 1920x1080 --primary --output eDP1 --mode 1920x1080 --right-of DP1-2
+
+# Home Setup
+xrandr --output DP-2-1 --mode 2560x1440 --rate 60 --primary --output eDP-1 --mode 1920x1080 --left-of DP-2-1
