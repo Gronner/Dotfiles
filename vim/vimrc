@@ -69,6 +69,7 @@ augroup Git
     autocmd FileType gitcommit hi clear SpellBad  " Clear current spellBad highlighting
     autocmd FileType gitcommit hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
     autocmd FileType gitcommit setlocal spell spelllang=en_us " Use english spell checking in tex files
+    autocmd FileType gitcommit setlocal textwidth=72 " Wrap text after 72 characters
 " }}}
 " }}}
 
