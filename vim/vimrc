@@ -191,6 +191,9 @@ filetype plugin on      " Enable filetype pluins
 " }}}
 
 "Remappings {{{
+" Command Mode {{{
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+" }}}
 " Movement {{{
 " Remap buffer switching
 nnoremap <C-J> <C-W><C-J>
