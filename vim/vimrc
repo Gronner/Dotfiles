@@ -59,7 +59,6 @@ augroup FullText
     autocmd FileType tex,markdown hi clear SpellBad  " Clear current spellBad highlighting
     autocmd FileType tex,markdown hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
     autocmd FileType tex,markdown setlocal spell spelllang=en_us " Use english spell checking in tex files
-    autocmd FileType tex,markdown setlocal complete+=kspell " Use autocompletion for full text
 
     autocmd FileType tex,markdown set textwidth=100
     autocmd FileType tex,markdown set wrap linebreak nolist
@@ -70,7 +69,6 @@ augroup Git
     autocmd FileType gitcommit hi clear SpellBad  " Clear current spellBad highlighting
     autocmd FileType gitcommit hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
     autocmd FileType gitcommit setlocal spell spelllang=en_us " Use english spell checking in tex files
-    autocmd FileType gitcommit setlocal complete+=kspell " Use autocompletion for full text
 " }}}
 " }}}
 
