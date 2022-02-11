@@ -19,6 +19,7 @@ local mykeys = {
     {key="k", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=-1}},
     {key="j", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=1}},
     {key="r", mods="LEADER", action="ShowLauncher"},
+    {key="x", mods="LEADER", action="ActivateCopyMode"},
 }
 
 -- Use Leader for Tab Switches
