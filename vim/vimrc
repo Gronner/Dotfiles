@@ -72,10 +72,6 @@ augroup Git
 " }}}
 " }}}
 
-" Custom Commands {{{
-command Term vert term++close
-" }}}
-
 " Custom Functions {{{
 " Switch relative/absolute line numbers
 func! NumberToggle()
@@ -88,10 +84,21 @@ func! NumberToggle()
     endif
 endfunc
 
+func! RemoveTrailingWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunc
+
 func! WhitespaceShowToggle()
     set list!
 endfunc
 
+" }}}
+
+" Custom Commands {{{
+command Term vert term++close
+command! RemoveTrailingWhitespace call RemoveTrailingWhitespace()
 " }}}
 
 " Misc {{{
