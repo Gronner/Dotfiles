@@ -226,6 +226,7 @@ nnoremap <C-c> :call WhitespaceShowToggle()<CR>
 nnoremap <space> za
 " Insert current date in ISO Format
 nnoremap <F5> "=strftime("%F")<CR>P
+inoremap <F5> <C-R>=strftime("%F")<CR>
 " }}}
 " Plugins {{{
 " FZF {{{
