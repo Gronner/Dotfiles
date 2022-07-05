@@ -32,7 +32,7 @@ for i = 1, 8 do
 end
 
 return {
-    color_scheme = "darkmatrix",
+    color_scheme = "Monokai Soda",
 
     -- Set costum keybinds with leader enabled
     disable_default_key_bindings = true,
