@@ -172,6 +172,7 @@ let g:coc_global_extensions = [
 \   'coc-json',
 \   'coc-python',
 \   'coc-rust-analyzer',
+\   'coc-snippets',
 \   'coc-vimtex']
 set statusline ^=%{coc#status()}
 highlight CocInfoFloat ctermfg=Black guifg=#353b45
@@ -237,9 +238,9 @@ nnoremap gr :call CocActionAsync('jumpReferences', 'tab drop')<CR>
 nnoremap gi :call CocActionAsync('jumpImplementation', 'tab drop')<CR>
 " Autocomplete on Enter (<cr>) pressed
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-" Switch autocomplete cycling to Tab for down and Shift-Tab for up
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Jump between placeholders in insert mode
+let g:coc_snippet_next = '<c-l>'
+let g:coc_snippet_prev = '<c-h>'
 " }}}
 " Easy Motion {{{
 map <Leader> <Plug>(easymotion-prefix)
