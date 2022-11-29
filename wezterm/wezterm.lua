@@ -1,8 +1,8 @@
 local wezterm = require 'wezterm';
 
 local mykeys = {
-    {key="+", mods="LEADER", action="IncreaseFontSize"},
-    {key="-", mods="LEADER", action="DecreaseFontSize"},
+    {key=";", mods="LEADER", action=wezterm.action.IncreaseFontSize},
+    {key="-", mods="LEADER", action=wezterm.action.DecreaseFontSize},
     {key="v", mods="LEADER", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
     {key="s", mods="LEADER", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     {key="k", mods="LEADER", action=wezterm.action{ActivatePaneDirection="Up"}},
@@ -18,8 +18,9 @@ local mykeys = {
     {key="v", mods="LEADER|SHIFT", action="Paste"},
     {key="k", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=-1}},
     {key="j", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=1}},
-    {key="r", mods="LEADER", action="ShowLauncher"},
+    {key="r", mods="LEADER", action=wezterm.action{ShowLauncherArgs={flags="LAUNCH_MENU_ITEMS|DOMAINS"}}},
     {key="x", mods="LEADER", action="ActivateCopyMode"},
+    {key="a", mods="LEADER|CTRL", action=wezterm.action.SendString '\x01'},
 }
 
 -- Use Leader for Tab Switches
