@@ -29,8 +29,6 @@ filetype plugin indent on	" Load file type-specific indent files
 set wildmenu		" Visual Autocomplete for command menu
 set wildmode=longest:full,full " Only complete to longest match, but switch to full if <TAB><TAB>
 
-set lazyredraw		" Redraw only when necessary
-
 set showmatch		" Highlight matching parenthesis
 
 set splitright		" Open new vertical split to the right
@@ -55,7 +53,7 @@ set foldmethod=syntax   " fold based on syntax
 
 " Autocommands {{{
 " Full Text {{{
-augroup FullText 
+augroup FullText
     autocmd FileType tex,markdown hi clear SpellBad  " Clear current spellBad highlighting
     autocmd FileType tex,markdown hi SpellBad cterm=underline ctermfg=red  " Use a red underline for highlighting
     autocmd FileType tex,markdown setlocal spell spelllang=en_us " Use english spell checking in tex files
@@ -160,6 +158,9 @@ let wiki = {}
 let wiki.nested_syntaxes = {'python' : 'python', 'c' : 'c'} " Activate syntax highlighting in vimwiki
 let g:vimwiki_list=[{'path' : '~/Documents/vimwiki', 'path_html' : '~/Documents/vimwiki/html_out'}]
 " }}}
+" Dart {{{
+Plug 'dart-lang/dart-vim-plugin', {'frozen': 1}
+" }}}
 " Coc {{{
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'frozen': 1} " IntelSense Engine for Vim
 " Plugins {{{
@@ -173,9 +174,21 @@ let g:coc_global_extensions = [
 \   'coc-python',
 \   'coc-rust-analyzer',
 \   'coc-snippets',
-\   'coc-vimtex']
+\   'coc-vimtex',
+\   'coc-flutter']
 set statusline ^=%{coc#status()}
 highlight CocInfoFloat ctermfg=Black guifg=#353b45
+
+inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#pum#next(1) :
+    \ CheckBackspace() ? "\<Tab>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+xmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
 " }}}
 " Rust {{{
 Plug 'rust-lang/rust.vim', {'frozen': 1}
