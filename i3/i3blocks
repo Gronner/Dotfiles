@@ -1,0 +1,46 @@
+command=~/.scripts/i3blocks-contrib/$BLOCK_NAME/$BLOCK_NAME
+
+[play]
+LABEL=♪
+command=~/.scripts/spotify
+interval=5
+
+[iface]
+#LABEL=wlan0:
+#IFACE=wlan0
+ADDRESS_FAMILY=inet6?
+color=#00FF00
+interval=10
+# set this to 1 to display the name of the connected WIFI interface instead of the IP address.
+display_wifi_name=0
+
+[disk]
+LABEL=/ 
+#DIR=$HOME
+#ALERT_LOW=10
+interval=30
+
+[disk]
+LABEL= 
+DIR=/home/felix/DataDisk/
+#ALERT_LOW=10
+interval=30
+
+[cpu_usage]
+interval=10
+LABEL= 
+#min_width=CPU: 100.00%
+#T_WARN=50
+#T_CRIT=80
+#DECIMALS=2
+#COLOR_NORMAL=#EBDBB2
+#COLOR_WARN=#FFFC00
+#COLOR_CRIT=#FF0000
+
+[calendar]
+interval=5
+LABEL= 
+# DATEFMT=+%H:%M:%S
+# SHORTFMT=+%H:%M:%S
+HEIGHT=180
+WIDTH=220

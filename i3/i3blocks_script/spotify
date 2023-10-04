@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+if [ "${BLOCK_BUTTON}" = "1" ]; then
+    if ! pgrep spotify > /dev/null; then
+        i3-msg -q exec "spotify"
+    fi
+fi
+
+case "$BLOCK_BUTTON" in 
+    1|2|3) spotifycli --playpause ;;
+    4) spotifycli --next ;;
+    5) spotifycli --prev ;;
+esac
+
+echo "$LABEL $(spotifycli --status) $(spotifycli --playbackstatus)" 
