@@ -14,13 +14,14 @@ local mykeys = {
     {key="t", mods="LEADER", action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
     {key="w", mods="LEADER", action=wezterm.action{CloseCurrentTab={confirm=true}}},
     {key="z", mods="LEADER", action="TogglePaneZoomState"},
-    {key="c", mods="LEADER|SHIFT", action="Copy"},
-    {key="v", mods="LEADER|SHIFT", action="Paste"},
+    {key="c", mods="LEADER|SHIFT", action=wezterm.action.CopyTo 'ClipboardAndPrimarySelection'},
+    {key="v", mods="LEADER|SHIFT", action=wezterm.action.PasteFrom 'Clipboard'},
     {key="k", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=-1}},
     {key="j", mods="LEADER|SHIFT", action=wezterm.action{ScrollByPage=1}},
     {key="r", mods="LEADER", action=wezterm.action{ShowLauncherArgs={flags="LAUNCH_MENU_ITEMS|DOMAINS"}}},
     {key="x", mods="LEADER", action="ActivateCopyMode"},
     {key="a", mods="LEADER|CTRL", action=wezterm.action.SendString '\x01'},
+    {key="L", mods="CTRL", action=wezterm.action.ShowDebugOverlay},
 }
 
 -- Use Leader for Tab Switches
